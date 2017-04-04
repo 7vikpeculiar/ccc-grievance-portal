@@ -1,0 +1,18 @@
+.
+├── app
+│   ├── __init__.py
+│   ├── accidents
+│   │   ├── __init__.py
+│   │   ├── controllers.py
+│   │   ├── models.py
+│   ├── users 
+│   │   ├── __init__.py
+│   │   ├── controllers.py
+│   │   ├── models.py
+│   └── dog
+│       ├── __init__.py
+│       ├── controllers.py
+│       └── models.py
+├── config.py
+├── run.py
+└── requirements.txt
