@@ -2,6 +2,7 @@ from flask import Blueprint, request, render_template, make_response\
                   ,flash,jsonify, g, session, redirect, url_for
 from app import db
 from app.dogs.models import Dog
+from app.maps.models import Map
 mod_dog = Blueprint('doggies', __name__)
 
 @mod_dog.route('/addDog', methods=['GET'])
@@ -25,20 +26,21 @@ def get_Dog():
     fin = {'dogs' : [ele.obj() for ele in out]}
     return jsonify(fin)
 
-@mod_dog.route('/deleteDog', methods=['GET'])
-def delete_dog():
-    name = request.args.get('name')
-    if not name:
-        return make_response({'error' :'Form not filled'})
-    out = Dog.query.filter_by(name=name).all()
-    for ele in out:
-        db.session.delete()
-    try:
-        db.session.commit()
-    except:
-        return make_response({'success':"Dog got deleted"});
-    return make_response({'error': 'Dog couldnt be delted'})
     
+@mod_dog.routes('/deletecomplain',methods=['POST'])
+def delete_complain():
+	if request.method=='POST':
+		if request.form['name']:
+			db.session.delete(Dog.query.filter_by(name=request.form['name']).first())
+			maps = Map.query.filter_by(name=request.form['name']).all()
+			for m in maps
+				db.session.delete(m)
+			db.session.commit()
+			return make_response('success:deleted complain',200,None)
+		else:
+			return make_response('error:enter fields properly',400,None)
+
+	return None
 
     
 
