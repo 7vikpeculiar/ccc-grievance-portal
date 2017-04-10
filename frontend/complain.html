@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>    
+    CCC-Grievance Portal-Complaint
+</title> 
+        <meta charset='UTF8'>
+    
+</head>
+<body>
+	<script src=complain.js></script>
+    <h1>Make a complain</h1>
+        <input type='text' name='name' placeholder="Name of the complaint" id="complaints"><br/><br/>
+	<h3>List of Dogs</h3>
+    <select name="dogs" multiple="multiple" id="complaint">
+  <option value="d1">Royal</option>
+  <option value="d2">Batman</option>
+  <option value="d3">Oreo</option>
+  <option value="d4">PHD</option>
+</select><br/><br/>
+        <textarea rows="4" cols="40" id="comment"></textarea><br/>
+    <input type="file" name="pic" accept="image/*" id="imagefile">
+  	<br/>
+    <input type='submit' value='Complain' onclick="complain()">
+       
+        <br/><br/>
+	<p>Go back
+        <button onclick="window.location.href='./home.html'">Cancel</button>
+	</p>
+</body>
+</html>
