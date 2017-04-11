@@ -1,7 +1,7 @@
 from flask import *
 from app import db
 from app.dogs.models import Dog
-from app.complain.models import Complain
+from app.complains.models import Complain
 from app.maps.models import Map
 
 mod_maps= Blueprint('maps', __name__)

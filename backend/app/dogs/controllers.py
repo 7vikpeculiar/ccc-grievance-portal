@@ -11,8 +11,8 @@ def addDog():
         if not request.form['name'] or not request.form['dlocation'] :#or not request.form['describe']:
             return make_response('error: Enter the field names correctly', 400, None)
         try:
-            dog = Dog(request.form['name'], request.form['dlocation']) #,request.form['descibe'])
-            db.session.add(dog)
+            newdog = Dog(request.form['name'], request.form['dlocation']) #,request.form['descibe'])
+            db.session.add(newdog)
             db.session.commit()
             return make_response('success: Created a Dog', 200, None)
         except:

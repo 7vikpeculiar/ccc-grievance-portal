@@ -1,11 +1,11 @@
 from flask import *
 from app import db
-from app.complain.models import Complain
+from app.complains.models import Complain
 from app.maps.models import Map
-mod_complain = Blueprint('complain', __name__)
+mod_complains= Blueprint('complain', __name__)
 
 
-@mod_complain.route('/addcomplain',methods=['POST'])
+@mod_complains.route('/addcomplain',methods=['POST'])
 def addComplain():
     if request.method=='POST':
         username=request.form('username')
@@ -23,7 +23,7 @@ def addComplain():
 
 			
 
-@mod_complain.route('/complains',methods=['GET'])
+@mod_complains.route('/complains',methods=['GET'])
 def get_Complain():
 	out=Complain.query.all()
 	fin={'complains' : [ele.obj() for ele in out]}
@@ -31,7 +31,7 @@ def get_Complain():
 
 
 
-@mod_complain.route('/deletecomplain',methods=['POST'])
+@mod_complains.route('/deletecomplain',methods=['POST'])
 def delete_complain():
 	if request.method=='POST':
 		if request.form['name']:
@@ -42,9 +42,7 @@ def delete_complain():
 			db.session.commit()
 			return make_response('success:deleted complain',200,None)
 		else:
-			return make_response('error:enter fields properly',400,None)
-
-	return None		
+			return make_response('error:enter fields properly',400,None)		
 
 
 

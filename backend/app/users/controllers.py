@@ -3,8 +3,7 @@ from app import db
 
 from app.users.models import User
 from app.maps.models import Map
-from app.complain.models import Complain
-from app.maps.models import Map
+from app.complains.models import Complain
 mod_users = Blueprint('users', __name__)
 
 @mod_users.route('/addUser', methods=['POST'])
@@ -18,16 +17,13 @@ def add_user():
                 print username
 		try:
 			if not name  or not email or not username:
-				print '3'
                                 return make_response('error: all fields are required',400,None)
 			user=User(name,email,username)
 			db.session.add(user)
 			db.session.commit()
-			print '2'
                         return make_response('success: Created a user',200, None)
 		except:
 			return make_response('error: Enter the field value corectly',400, None)
-	print '1'
         return 'OK'
 
 @mod_users.route('/deleteUser', methods=['POST'])
