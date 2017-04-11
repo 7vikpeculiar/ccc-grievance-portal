@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from app import db
-from app.complain.models import Complain
+from app.complains.models import Complain
 from app.dogs.models import Dog
 
 class Map(db.Model):
