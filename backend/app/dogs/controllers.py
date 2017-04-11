@@ -8,17 +8,19 @@ mod_dog = Blueprint('doggies', __name__)
 @mod_dog.route('/addDog', methods=['POST'])
 def addDog():
     if request.method == 'POST':
-        if not request.form['name'] or not request.form['dlocation'] :#or not request.form['describe']:
+        if not request.form['name'] or not request.form['dlocation'] :
+            #or not request.form['describe']:
+            print '1'
             return make_response('error: Enter the field names correctly', 400, None)
         try:
             newdog = Dog(request.form['name'], request.form['dlocation']) #,request.form['descibe'])
             db.session.add(newdog)
             db.session.commit()
+            print '2'
             return make_response('success: Created a Dog', 200, None)
         except:
+            print '3'
             return make_response('error: Enter the field values correctly', 400, None)
-
-    return None
 
 @mod_dog.route('/dogs', methods=['GET'])
 def get_Dog():

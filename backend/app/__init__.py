@@ -22,7 +22,7 @@ def not_found(error):
 # Import a module / component using its blueprint handler variable (mod_auth)
 from app.dogs.controllers import mod_dog
 from app.users.controllers import mod_users
-from app.complains.controllers import mod_complain
+from app.complains.controllers import mod_complains
 from app.maps.controllers import mod_maps
 #nikky fill it up
 # Register blueprint(s)
