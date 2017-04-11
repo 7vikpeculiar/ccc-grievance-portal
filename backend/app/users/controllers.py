@@ -3,26 +3,32 @@ from app import db
 
 from app.users.models import User
 from app.maps.models import Map
-from app.complains.models import Complain
+from app.complain.models import Complain
 from app.maps.models import Map
 mod_users = Blueprint('users', __name__)
 
 @mod_users.route('/addUser', methods=['POST'])
 def add_user():
-	if request.method==['POST']:
-		name=request.form('name')
-		email=request.form('email')
-		username=request.form('username')
+	if request.method=='POST':
+		name=request.form['name']
+		email=request.form['email']
+		username=request.form['username']
+                print name
+                print email
+                print username
 		try:
-			if not user or not email or not username:
-				return make_response('error: all fields are required',400,None)
+			if not name  or not email or not username:
+				print '3'
+                                return make_response('error: all fields are required',400,None)
 			user=User(name,email,username)
 			db.session.add(user)
 			db.session.commit()
-			return make_response('success: Created a user',200, None)
+			print '2'
+                        return make_response('success: Created a user',200, None)
 		except:
 			return make_response('error: Enter the field value corectly',400, None)
-	return None
+	print '1'
+        return 'OK'
 
 @mod_users.route('/deleteUser', methods=['POST'])
 def delete_users():
@@ -47,7 +53,6 @@ def delete_users():
 
 @mod_users.route('/users',methods=['GET'])
 def all_users():
-	if request.method==['GET']:
-		return jsonify({'users': [i.serialize() for i in User.query.all()]})
+        return jsonify({'users': [i.serialize() for i in User.query.all()]})
 		
 		

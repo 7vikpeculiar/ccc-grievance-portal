@@ -5,20 +5,20 @@ from app.dogs.models import Dog
 from app.maps.models import Map
 mod_dog = Blueprint('doggies', __name__)
 
-@mod_dog.route('/addDog', methods=['GET'])
+@mod_dog.route('/addDog', methods=['POST'])
 def addDog():
-    name = request.args.get('name')
-    location = request.args.get('location')
-    description = request.args.get('describe')
-    newDog = Dog(name,location,description)
-    if not name or not location or not description:
-        return make_response({'error': 'Improper Request'})
-    db.session.add(newDog)
-    try:
-        db.session.commit()
-    except:
-        return make_response({'success':"Dog got Added"});
-    return make_response({'error': 'Dog already exists or enter the field values properly'})
+    if request.method == 'POST':
+        if not request.form['name'] or not request.form['dlocation'] :#or not request.form['describe']:
+            return make_response('error: Enter the field names correctly', 400, None)
+        try:
+            dog = Dog(request.form['name'], request.form['dlocation']) #,request.form['descibe'])
+            db.session.add(dog)
+            db.session.commit()
+            return make_response('success: Created a Dog', 200, None)
+        except:
+            return make_response('error: Enter the field values correctly', 400, None)
+
+    return None
 
 @mod_dog.route('/dogs', methods=['GET'])
 def get_Dog():
@@ -27,13 +27,13 @@ def get_Dog():
     return jsonify(fin)
 
     
-@mod_dog.routes('/deletecomplain',methods=['POST'])
-def delete_complain():
+@mod_dog.route('/deleteDog',methods=['POST'])
+def delete_dog():
 	if request.method=='POST':
 		if request.form['name']:
 			db.session.delete(Dog.query.filter_by(name=request.form['name']).first())
 			maps = Map.query.filter_by(name=request.form['name']).all()
-			for m in maps
+                        for m in maps:
 				db.session.delete(m)
 			db.session.commit()
 			return make_response('success:deleted complain',200,None)

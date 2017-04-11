@@ -4,13 +4,13 @@ from app.users.models import User
 
 class Complain(db.Model):
 	__tablename__='Complain'
-	Id=db.Column(db.Integer,primary_key=True,auto_increment=True)
+	id=db.Column(db.Integer,primary_key=True,autoincrement=True)
 	username=db.Column(db.String(40),db.ForeignKey(User.username))
 	description=db.Column(db.String(500))
 	name=db.Column(db.String(40),unique=True)
 
 
-	def __init__(self,username,name,description):
+	def __init__(self,username,description,name):
 		self.username=username
 		self.name=name
 		self.description=description
