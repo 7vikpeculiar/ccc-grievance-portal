@@ -1,32 +1,17 @@
-<html>
-    <head>
-        <title>
-            CCC-Grievance Portal-login
-        </title>
-        <meta charset='UTF8'>
-        <style>
-            body{    background-image: url("dd.jpg");
-                    background-repeat: no-repeat;
-        }
-        </style>
-    </head>    
-    <body>
-	
-        <h1> Login as User</h1> 
-        
-          <input type="text" name="username" placeholder="Username" id='user'><br/><br/>
-        
-        <input type='password' name='password' placeholder="Password" id='pass'><br/><br/>
-        <input type='submit' onclick='login()' value='Login'> 
-        <p>Don't have an account?</p>
-        <button onclick="window.location.href='./createac.html'">Sign up</button> 
-       
-	<h1>Login as Admin</h1>
-    
-          <input type="text" name="adminname" placeholder="Adminname" id='useradm'><br/><br/>
-        
-        <input type='password' name='passwordadmin' placeholder="PasswordAdmin" id='passadm'><br/><br/>
-        <input type='submit' onclick='loginAdm()' value='LoginAdm'>
-	
-    </body>
-</html>    
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <form action="/api/login" method="POST">
+            <legend>Login</legend>
+            <p class="message text-danger"></p>
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" class="form-control" id="login-email" name="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" class="form-control" id="login-password" name="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>

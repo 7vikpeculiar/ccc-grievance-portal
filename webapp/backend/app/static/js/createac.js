@@ -5,6 +5,7 @@ var create = function()
 	var email1=document.getElementById("email").value;
 	var pass1=document.getElementById("pass").value;
 	var conf1=document.getElementById("confirm").value;
+        
         $(document).ready(function(){
 		$.ajax({
                     url:"http://127.0.0.1:5050/addUser",
@@ -12,7 +13,8 @@ var create = function()
 			data:{
 				name:name1,
 				username:user1,
-			        email:email1	
+			        email:email1,	
+                                password : pass1,
 			},
 			success: function(response){
 				console.log(response);

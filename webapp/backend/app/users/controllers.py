@@ -34,13 +34,15 @@ def add_user():
 		name=request.form['name']
 		email=request.form['email']
 		username=request.form['username']
+		password=request.form['password']
                 print name
                 print email
                 print username
+                print password
 		try:
-			if not name  or not email or not username:
+			if not name  or not email or not username or not password:
                                 return make_response('error: all fields are required',400,None)
-			user=User(name,email,username)
+			user=User(name,email,username,password)
 			db.session.add(user)
 			db.session.commit()
                         return make_response('success: Created a user',200, None)
