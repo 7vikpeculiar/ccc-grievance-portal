@@ -6,13 +6,12 @@ var complain=function()
 	{
 		if(complaint1.options[i].selected==true)
 		{
-			//alert(complaint1.options[i].selected);
 			dog[j]=complaint1.options[i].value;
 			j++;
 		}	
 	}
-	//return dog;	
-	var comment1=document.getElementById("comment").value;
+	var comment1= document.getElementById("comment").value;
 	var imagefile1=document.getElementById("imagefile").value;
-
+        
+        
 }
