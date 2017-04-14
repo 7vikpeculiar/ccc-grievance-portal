@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db
 
 class Dog(db.Model):
-    __tablename__= 'doggies'
+    __tablename__= 'Dog'
     name  = db.Column(db.String(40),primary_key = True)
     describe = db.Column(db.String(200))
     location = db.Column(db.String(200))

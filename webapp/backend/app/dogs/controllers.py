@@ -3,7 +3,7 @@ from flask import Blueprint, request, render_template, make_response\
 from app import db
 from app.dogs.models import Dog
 from app.maps.models import Map
-mod_dog = Blueprint('doggies', __name__)
+mod_dog = Blueprint('Dog', __name__)
 
 @mod_dog.route('/addDog', methods=['POST'])
 def addDog():
