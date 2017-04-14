@@ -6,10 +6,12 @@ class Dog(db.Model):
     name  = db.Column(db.String(40),primary_key = True)
     describe = db.Column(db.String(200))
     location = db.Column(db.String(200))
-    def __init__(self,name,location):
+    accepted = db.Column(db.Boolean)
+    def __init__(self,name,location,describe):
         self.name = name
         self.describe = describe
         self.location = location
+        self.accepted = True
     def __repr__(self):
         return "<Dog %r>" % self.name
 
