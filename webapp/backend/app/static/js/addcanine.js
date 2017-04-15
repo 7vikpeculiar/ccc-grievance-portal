@@ -11,7 +11,7 @@ var addCanine = function()
             data: {
                 name: dogname,
                 dlocation: dogloc,
-                //describe: describe,
+                describe: describe,
             },
             success: function (response) 
             {

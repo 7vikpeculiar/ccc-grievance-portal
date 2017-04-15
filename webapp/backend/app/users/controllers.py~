@@ -34,26 +34,20 @@ def logout():
 @mod_users.route('/addUser', methods=['POST'])
 def add_user():
 	if request.method=='POST':
+		name=request.form['name']
+		email=request.form['email']
+		username=request.form['username']
+		password=request.form['password']
 		try:
-			name=request.form['name']
-			email=request.form['email']
-			username=request.form['username']
-			password=request.form['password']
-		except KeyError as e:
-			return jsonify(success=False, message="%s not sent in the request" % e.args), 400
-		if '@' not in email:
-			return jsonify(success=False, message="Please enter a valid email"), 400
-
-		if not name  or not email or not username or not password:
-                	return jsonify(success=False,message="all fields are required"), 400
-		try:
+			if not name  or not email or not username or not password:
+                                return make_response('error: all fields are required',400,None)
 			user=User(name,email,username,password)
 			db.session.add(user)
 			db.session.commit()
-                        
-		except IntegrityError as e:
-			return jsonify(success=False, message="fields already exist"), 400
-       		return jsonify(success=True)
+                        return make_response('success: Created a user',200, None)
+		except:
+			return make_response('error: Enter the field value corectly',400, None)
+        return 'OK'
 
 @mod_users.route('/deleteUser', methods=['POST'])
 def delete_users():
@@ -66,15 +60,16 @@ def delete_users():
 				for m in maps:
 					db.session.delete(m)
 				db.session.delete(ele)
-			try:
-				db.session.commit()
-				return jsonify(success=True, message="successfully deleted")
-			except:
-				return jsonify(success=False, message="unsuccessfull"), 400
+			db.session.commit()
+			return make_response('success:deleted user',200,None)
 		else:
-			return jsonify(success=False, message="enter the name to be deleted"), 400
+			return make_response('error:enter the field names correctly',400,None)
 
+	return None
 	
+
+
+
 @mod_users.route('/users',methods=['GET'])
 def all_users():
         return jsonify({'users': [i.serialize() for i in User.query.all()]})

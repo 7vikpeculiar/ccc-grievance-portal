@@ -2,14 +2,16 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db
 
 class Dog(db.Model):
-    __tablename__= 'doggies'
+    __tablename__= 'Dog'
     name  = db.Column(db.String(40),primary_key = True)
-    describe = db.Column(db.String(200))
+    describe = db.Column(db.String(200),nullable=False)
     location = db.Column(db.String(200))
-    def __init__(self,name,location):
+    accepted = db.Column(db.Boolean)
+    def __init__(self,name,location,describe):
         self.name = name
         self.describe = describe
         self.location = location
+        self.accepted = True
     def __repr__(self):
         return "<Dog %r>" % self.name
 

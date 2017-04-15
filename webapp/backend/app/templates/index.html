@@ -4,25 +4,29 @@
     <title>CCC Grievance</title>
     <meta charset="utf-8">
     <!--link rel="stylesheet" href="/static/css/vendor/bootstrap.min.css"-->
+    <style>
+            body{    background-image: url("dd.jpg");
+                    background-repeat: no-repeat;
+        }
+        </style>
+
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center"></h1>
-        <hr>
-        <div id="content">
-        </div>
-    </div>
-    <!--script src="/static/js/vendor/jquery.min.js"></script>
-    <script src="/static/js/vendor/bootstrap.min.js"></script>
-    <script src="/static/js/vendor/page.js"></script>
-    <script src="/static/js/vendor/handlebars.min.js"></script>
+<h1> Login as User</h1>
 
-    <script src="/static/js/helpers.js"></script>
-    <script src="/static/js/view-manager.js"></script>
-    <script src="/static/js/auth-manager.js"></script>
-    <script src="/static/js/todo.js"></script>
-    <script src="/static/js/todo-manager.js"></script>
-    <script src="/static/js/routes.js"></script>
-    <script src="/static/js/app.js"></script!-->
+          <input type="text" name="username" placeholder="Username" id='user'><br/><br/>
+
+        <input type='password' name='password' placeholder="Password" id='pass'><br/><br/>
+        <input type='submit' onclick='login()' value='Login'>
+        <p>Don't have an account?</p>
+        <button onclick="window.location.href='./createac.html'">Sign up</button>
+
+        <h1>Login as Admin</h1>
+
+          <input type="text" name="adminname" placeholder="Adminname" id='useradm'><br/><br/>
+
+        <input type='password' name='passwordadmin' placeholder="PasswordAdmin" id='passadm'><br/><br/>
+        <input type='submit' onclick='loginAdm()' value='LoginAdm'>
+
 </body>
 </html>

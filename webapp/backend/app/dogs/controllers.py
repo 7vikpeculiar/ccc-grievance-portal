@@ -3,17 +3,16 @@ from flask import Blueprint, request, render_template, make_response\
 from app import db
 from app.dogs.models import Dog
 from app.maps.models import Map
-mod_dog = Blueprint('doggies', __name__)
+mod_dog = Blueprint('Dog', __name__)
 
 @mod_dog.route('/addDog', methods=['POST'])
 def addDog():
     if request.method == 'POST':
-        if not request.form['name'] or not request.form['dlocation'] :
-            #or not request.form['describe']:
+        if not request.form['name'] or not request.form['dlocation'] or not request.form['describe']:
             print '1'
             return make_response('error: Enter the field names correctly', 400, None)
         try:
-            newdog = Dog(request.form['name'], request.form['dlocation']) #,request.form['descibe'])
+            newdog = Dog(request.form['name'], request.form['dlocation'],request.form['describe'])
             db.session.add(newdog)
             db.session.commit()
             print '2'
@@ -25,6 +24,12 @@ def addDog():
 @mod_dog.route('/dogs', methods=['GET'])
 def get_Dog():
     out = Dog.query.all()
+    fin = {'dogs' : [ele.obj() for ele in out]}
+    return jsonify(fin)
+
+@mod_dog.route('/acceptedDogs', methods=['GET'])
+def accepted_Dog():
+    out = Dog.query.filter_by(accepted=True).all()
     fin = {'dogs' : [ele.obj() for ele in out]}
     return jsonify(fin)
 

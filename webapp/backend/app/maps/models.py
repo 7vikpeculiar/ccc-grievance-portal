@@ -6,8 +6,8 @@ from app.dogs.models import Dog
 class Map(db.Model):
 	__tablename__='Map'
 	id=db.Column(db.Integer,primary_key=True,autoincrement=True)
-	cname=db.Column(db.String(40),db.ForeignKey(Complain.name))
-	dname=db.Column(db.String(40),db.ForeignKey(Dog.name))
+	cname=db.Column(db.String(40),db.ForeignKey('Complain.name'))
+	dname=db.Column(db.String(40),db.ForeignKey('Dog.name'))
 
 
 	def __init__(self,cname,dname):
