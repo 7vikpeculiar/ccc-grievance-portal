@@ -4,7 +4,7 @@ from app import db
 class Dog(db.Model):
     __tablename__= 'Dog'
     name  = db.Column(db.String(40),primary_key = True)
-    describe = db.Column(db.String(200))
+    describe = db.Column(db.String(200),nullable=False)
     location = db.Column(db.String(200))
     accepted = db.Column(db.Boolean)
     def __init__(self,name,location,describe):
