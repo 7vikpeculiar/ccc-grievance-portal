@@ -19,7 +19,9 @@
  	<div class="list-group">
 	<select multiple="yes">
 	   {{#each names}}
+		<div href="/todo/{{id}}" class="list-group-item clearfix">
 		<option value={{name}}>{{name}}</option>
+		</div>
 	   {{/each}}
 	</select>
 	</div>

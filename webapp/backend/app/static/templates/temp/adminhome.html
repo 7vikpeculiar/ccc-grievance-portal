@@ -1,0 +1,48 @@
+    <p class="text-right">
+        <a href="/logout">Logout</a>
+    </p>
+<div class="panel panel-default">
+    <div class="list-group">
+        {{#each users}}
+            <div href="/todo/{{ id }}" class="list-group-item clearfix" {{#if done}} style="text-decoration: line-through" {{/if}}>
+                <strong>{{ name }}</strong>
+                {{/done}}
+                <div class="btn btn-danger pull-right delete-task" data-id="{{ id }}" style="margin-left: .5em">Delete</div>
+                <div class="btn pull-right" style="background-color: {{ color }}" style="margin-left: .5em">&nbsp;</div>
+            </div>
+
+        {{/each}}
+    </div>
+    <a href="todo/create" class="btn btn-primary">Add a user</a>
+</div>
+
+<div class="panel panel-default">
+    <div class="list-group">
+        {{#each dogs}}
+            <div href="/todo/{{ id }}" class="list-group-item clearfix" {{#if done}} style="text-decoration: line-through" {{/if}}>
+                <strong>{{ name }}</strong>
+                {{^done}} <div class="btn btn-primary pull-right mark-as-done" data-id="{{ id }}" style="margin-left: .5em">Mark as done</div> {{/done}}
+                <div class="btn btn-danger pull-right delete-task" data-id="{{ id }}" style="margin-left: .5em">Delete</div>
+                <div class="btn pull-right" style="background-color: {{ color }}" style="margin-left: .5em">&nbsp;</div>
+            </div>
+
+        {{/each}}
+    </div>
+    <a href="todo/create" class="btn btn-primary">Add a canine</a>
+</div>
+
+<div class="panel panel-default">
+    <div class="list-group">
+        {{#each todos}}
+            <div href="/todo/{{ id }}" class="list-group-item clearfix" {{#if done}} style="text-decoration: line-through" {{/if}}>
+                <strong>{{ title }}</strong>
+                <small> {{ text }} </small>
+                {{^done}} <div class="btn btn-primary pull-right mark-as-done" data-id="{{ id }}" style="margin-left: .5em">Mark as done</div> {{/done}}
+                <div class="btn btn-danger pull-right delete-task" data-id="{{ id }}" style="margin-left: .5em">Close</div>
+                <div class="btn pull-right" style="background-color: {{ color }}" style="margin-left: .5em">&nbsp;</div>
+            </div>
+
+        {{/each}}
+    </div>
+    <a href="todo/create" class="btn btn-primary">Reply to a complaint</a>
+</div>

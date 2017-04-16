@@ -1,6 +1,6 @@
 <form action="{{ formAction }}" method="POST">
     <p class="">
-        <a href="/">View all complaints</a>
+        <a href="/">View all todo</a>
     </p>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -11,17 +11,7 @@
         </div>
         <div class="panel-footer text-right">
             <input type="color" name="color" class="btn btn-default" style="height: 34px;">
-            <button type="submit" class="btn btn-success">Add</button>
+            <button type="submit" class="btn btn-success">Save</button>
         </div>
     </div>
-
-    <div class="panel panel-default">
- 	<div class="list-group">
-	<select multiple="yes">
-	   {{#each names}}
-		<option value={{name}}>{{name}}</option>
-	   {{/each}}
-	</select>
-	</div>
-     </div>
 </form>
