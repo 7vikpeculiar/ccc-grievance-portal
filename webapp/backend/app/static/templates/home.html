@@ -1,28 +1,18 @@
-<html>
-<head>
-    <title>  
-        CCC-Grievance Portal-HOME
-    </title>   
-    <meta charset='UTF8'>
-    <style>
-        body{background-image: url("bg.jpg");
-        background-repeat: repeat;}
-    </style>
-</head>
-    <body >
-        <div style="background-color:black;">
-    <h1 style="color:white;">CCC-Grievance Portal</h1>
-        </div> 
-        <div style="background-color:#900C3F;"><br/>
-	<button onclick="window.location.href='./callghmc.html'">Call GHMC</button>        
-	<button onclick="window.location.href='./complain.html'">Complain</button>        
-	<button onclick="window.location.href='./addcanine.html'">Add a canine</button>        
-	<button onclick="window.location.href='./complain.html'">Complain</button>        
-        <input type='submit' value='Logout' onclick='logout()'>
-            
-            <br/>
-        </div>
-        
-    </body>
-            
-</html>
+    <p class="text-right">
+        <a href="/logout">Logout</a>
+    </p>
+<div class="panel panel-default">
+    <div class="list-group">
+        {{#each todos}}
+            <div href="/todo/{{ id }}" class="list-group-item clearfix" {{#if done}} style="text-decoration: line-through" {{/if}}>
+                <strong>{{ title }}</strong>
+                <small> {{ text }} </small>
+                {{^done}} <div class="btn btn-primary pull-right mark-as-done" data-id="{{ id }}" style="margin-left: .5em">Mark as done</div> {{/done}}
+                <div class="btn btn-danger pull-right delete-task" data-id="{{ id }}" style="margin-left: .5em">Delete</div>
+                <div class="btn pull-right" style="background-color: {{ color }}" style="margin-left: .5em">&nbsp;</div>
+            </div>
+
+        {{/each}}
+    </div>
+    <a href="todo/create" class="btn btn-primary">Add a complaint</a>
+</div>
