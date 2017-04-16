@@ -14,4 +14,19 @@
             <button type="submit" class="btn btn-success">Add</button>
         </div>
     </div>
+
+<div class="panel panel-default">
+    <div class="list-group">
+        {{#each dogs}}
+            <div href="/todo/{{ id }}" class="list-group-item clearfix" {{#if done}} style="text-decoration: line-through" {{/if}}>
+                <strong>{{ name }}</strong>
+                
+                {{^done}} <div class="btn btn-primary pull-right mark-as-done" data-id="{{ id }}" style="margin-left: .5em">Mark as done</div> {{/done}}
+                <div class="btn btn-danger pull-right delete-task" data-id="{{ id }}" style="margin-left: .5em">Delete</div>
+                <div class="btn pull-right" style="background-color: {{ color }}" style="margin-left: .5em">&nbsp;</div>
+            </div>
+
+        {{/each}}
+    </div>
+</div>
 </form>
