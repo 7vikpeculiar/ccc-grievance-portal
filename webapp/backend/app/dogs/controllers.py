@@ -1,25 +1,21 @@
-from flask import Blueprint, request, render_template, make_response\
-                  ,flash,jsonify, g, session, redirect, url_for
+from flask import *
 from app import db
 from app.dogs.models import Dog
-from app.maps.models import Map
+#from app.maps.models import Map
 mod_dog = Blueprint('Dog', __name__)
 
-@mod_dog.route('/addDog', methods=['POST'])
+@mod_dog.route('/dogs', methods=['POST'])
 def addDog():
     if request.method == 'POST':
         if not request.form['name'] or not request.form['dlocation'] or not request.form['describe']:
-            print '1'
-            return make_response('error: Enter the field names correctly', 400, None)
+	    return jsonify(success=False), 404
         try:
             newdog = Dog(request.form['name'], request.form['dlocation'],request.form['describe'])
             db.session.add(newdog)
             db.session.commit()
-            print '2'
-            return make_response('success: Created a Dog', 200, None)
+            return jsonify(success=True)
         except:
-            print '3'
-            return make_response('error: Enter the field values correctly', 400, None)
+            return jsonify(success=False), 404
 
 @mod_dog.route('/dogs', methods=['GET'])
 def get_Dog():
@@ -27,27 +23,24 @@ def get_Dog():
     fin = {'dogs' : [ele.obj() for ele in out]}
     return jsonify(fin)
 
-@mod_dog.route('/acceptedDogs', methods=['GET'])
+@mod_dog.route('/dogs/approved', methods=['GET'])
 def accepted_Dog():
     out = Dog.query.filter_by(accepted=True).all()
     fin = {'dogs' : [ele.obj() for ele in out]}
     return jsonify(fin)
 
     
-@mod_dog.route('/deleteDog',methods=['POST'])
+@mod_dog.route('/dogs/<id>/delete',methods=['POST'])
 def delete_dog():
 	if request.method=='POST':
-		if request.form['name']:
-			db.session.delete(Dog.query.filter_by(name=request.form['name']).first())
-			maps = Map.query.filter_by(name=request.form['name']).all()
-                        for m in maps:
-				db.session.delete(m)
-			db.session.commit()
-			return make_response('success:deleted complain',200,None)
-		else:
-			return make_response('error:enter fields properly',400,None)
+		dog=Dog.query.filter_by(Dog.name==id).first()
+		db.session.delete(dog)
+		db.session.commit()
+		return jsonify(success=True)
+	else:
+		return jsonify(success=False), 404
 
-	return None
+
 
     
 

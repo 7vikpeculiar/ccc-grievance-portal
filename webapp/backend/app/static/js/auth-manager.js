@@ -1,11 +1,18 @@
 var authManager = (function() {
     var loginState = null;
     var intendedPath = null;
-    var loggedIn = function (user) {
+    var loggedIn = function (user,flag) {
         loginState = {};
         loginState.loggedIn = true;
         loginState.user = user;
-        page(intendedPath ? intendedPath : '/');
+	if(flag===true)
+	{
+	page(intendedPath ? intendedPath : '/');
+	}
+	else
+	{
+	page(intendedPath ? intendedPath : '/admn');
+	}
     };
 
     var showLogin = function() {
@@ -14,7 +21,7 @@ var authManager = (function() {
                 .find('form')
                 .submitViaAjax(function (response) {
                     if (response.success) {
-                        loggedIn(response.user);
+                        loggedIn(response.user,response.flag);
                     } else {
                         $view.find('.message').text(response.message);
                     }
@@ -37,6 +44,7 @@ var authManager = (function() {
                             },
                             success: function(response) {
                                 if (response.success) {
+					
                                     loggedIn(response.user);
                                 } else {
                                     path('/login');

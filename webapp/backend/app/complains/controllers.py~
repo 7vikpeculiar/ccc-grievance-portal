@@ -1,8 +1,9 @@
 from flask import *
-from app import *
+from app import db,requires_auth
 from app.complains.models import Complain
+from app.maps.models import Map
 from app.dogs.models import Dog
-mod_complains= Blueprint('complain', __name__,url_prefix='/api')
+mod_complains= Blueprint('complain', __name__)
 
 
 @mod_complains.route('/addcomplain',methods=['POST'])
@@ -13,7 +14,7 @@ def addComplain():
 		name=request.form['name']
 		user_email=session['user_email']
 		try:
-			if not description or not name:
+			if not username or not description or not name:
 				return jsonify(success=False),404
 			newcomplain=Complain(user_email,description,name)
 			db.session.add(newcomplain)
@@ -30,31 +31,22 @@ def addComplain():
 		out = Dog.query.filter_by(accepted=True).all()
 		fin = [ele.obj() for ele in out]
 		finee = [ele['name'] for ele in fin]
-		return jsonify(success=True,names=finee)
-
-@mod_complains.route('/admn/complains',methods=['GET'])
-@requires_admn_auth
+		return jsonify(names=finee)
+@mod_complains.route('/complains',methods=['GET'])
+@requires_auth
 def get_all_Complains():
 	user_email=session['user_email']
 	out=Complain.query.all()
-	return jsonify(success=True,complains=[todo.serialize() for todo in out])
-
-@mod_complains.route('/complains',methods=['GET'])
-@requires_auth
-def get_user_complains():
-	user_email=session['user_email']
-	out=Complain.query.filter_by(Complain.user_email==user_email)
-	return jsonify(success=True,complains=[todo.serialize() for todo in out])
-	
-@mod_complains.route('/complains/<id>',methods=['GET'])
+	fin={'complains' : [ele.obj() for ele in out]}
+	return jsonify(fin)
+@mod_complains.route('/complains/<id>',method=['POST'])
 @requires_auth
 def get_complains(id):
 	user_email=session['user_email']
-	out=Complain.query.filter_by(Complain.id==id,Complain.user_email==user_email).all()
-	return jsonify(success=True,complains=[todo.serialize() for todo in out])
+	out=Complain.query.all
 
 
-@mod_complains.route('/complains/<id>/done', methods=['POST'])
+@mod_todo.route('/complains/<id>/done', methods=['POST'])
 @requires_auth
 def mark_done(id):
 	user_email= session['user_email']
@@ -67,7 +59,7 @@ def mark_done(id):
 		return jsonify(success=True)
 
 @mod_complains.route('/complains/<id>/delete',methods=['POST'])
-@requires_auth
+@require_auth
 def delete_complain(id):
 	if request.method=='POST':
 		user_email=session['user_email']
@@ -76,6 +68,9 @@ def delete_complain(id):
 			return jsonify(success=False), 404
 		else:
 			db.session.delete(complaint)
+			maps = Map.query.filter_by(Map.complain_id==id).all()
+                	for m in maps:
+				db.session.delete(m)
 			db.session.commit()
 		return jsonify(success=True)
 	else:
