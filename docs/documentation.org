@@ -1,0 +1,73 @@
+#+title: Documentation
+#+SETUPFILE: ../../org-templates/level-2.org
+#+EXCLUDE_TAGS: boilerplate
+#+PROPERTY: session **
+#+PROPERTY: results output
+#+PROPERTY: exports code
+#+TAGS: boilerplate(b) notes(n) solution(s)
+
+* General description:
+
+This portal is used to register your complaints about the violent canines in a community.
+The portal consists of Dogs,Users and Admin in our database.
+
+* Functionality:
+
+There are two types of users: user and Admin
+->A user can post videos /photos of the incident that he is complaining about.
+->He can delete / edit his post.
+->He can tag one or more dogs to his complain.
+->A user can ask for addition of new dogs by requesting the admin and can also upload a picture.
+->User can also call GHMC and check the status of his complain.
+->Admin can do all the things a user can and in addition to it , he has approve/cancel requests by the user or
+   Delete/add a canine.
+->In addition to it he can put the dogs for adoption 
+
+* Working of the portal:
+
+The portal opens with the login page, where the already existing users can login whereas those new can 
+Register themselves.Loging in takes them to the home page where all complains can be seen.He can 
+Complain,add a canine, call GHMC through the buttons present on the home page.Clicking those buttons 
+Him to their respective pages.
+
+* Model:
+
+** we have 5 fields : ID, useremail, description, name ,done.
+*** This allots a unique id to a complain, user-email to know about the user who is complaining
+*** Allows a description for the dog , name for the subject , done to complete.
+*** AddComplain to add a complaint
+*** Get _all_complains gives all the complains.
+*** Get_user_complains gives the complains of the user.
+*** Mark_done marks a complain.
+*** Delete_complain to delete a complain.
+		
+** We have 4 fields : accepted , name , location, describe.
+*** Name is given to the dog.
+*** Description of the dog
+*** Location where the dog is found
+*** Accepted is initially set as false and becomes true only after the details of the dog goes 
+*** To backend.
+*** Delete_dog deletes a dog.
+*** Get_dog gives the list of all dogs since they are needed when we need to delete any dog from 
+*** Our list 
+		
+** We have 3 fields : ID, Dogname, complain name.
+*** It maps a set of dogs to a complain.
+*** ID denotes a key.
+*** If the fields are empty addMap returns error else creates a map  
+
+	
+    
+** We have 5 fields : name, email, password, role, check_password 
+*** Name gives name to the user
+*** Email gives email to the user
+*** Password id the password of the user account
+*** Role lets us know whether he is a user or admin
+*** Check_password checks the password
+*** Check_login checks if a user is logged in
+*** Delete_user for admin to delete a user
+*** All_users gives the list of all users
+*** Delete_users to delete a user for admin
+*** Logout to pop from the season
+*** login for logging in a user
+    
