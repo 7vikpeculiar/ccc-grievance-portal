@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>
+	Home Page
+</title>
+	<meta charset='UTF8'>
+</head>
+<body>
+    <h1>Home Page</h1>
+    <h2>Hello<h2>        
+    <h2>List of Complaints</h2>
+        <table border='3'>
+        <tr>
+            <th>Users</th>
+            <th>Name of Complaint </th>
+            <th>Description</th>
+        <tr>
+                <form action='http://127.0.0.1:5050/deletecomplain' method='POST'>
+            {% for ele in comps %}
+            <td>{{ele.username}}</td>
+            <td>{{ele.name}}</td>
+            <td>{{ele.description}}</td>
+            </form>
+        </tr>
+        {% endfor %}
+        </table>
+        <h3>Functionality</h3>
+        <form action='http://127.0.0.1:5050/addDog' method='GET'>
+            <input type='submit' value='Request adding a Canine?'>
+        </form>
+        <form action='http://127.0.0.1:5050/addcomplain/{{tbox}}' method='GET'>
+            <input type='submit' value='Complain'>
+        </form>
+        <form action='http://127.0.0.1:5050/viewcomplains/{{tbox}}' method='GET'>
+            <input type='submit' value='View and Delete complains'>
+        </form>
+        <form action='http://127.0.0.1:5050/edit/{{tbox}}' method='GET'>
+            <input type='submit' value='Edit complains'>
+        </form>
+        <form action='http://127.0.0.1:5050/callghmc/{{tbox}}' method='POST'>
+            <input type='submit' value='Call GHMC' onclick="alert('Your request has been sent to GHMC')">
+        </form>
+        <form action='http://127.0.0.1:5050/logout' method='POST'>
+            <input type='submit' value='Logout'>
+        </form>
+</html>

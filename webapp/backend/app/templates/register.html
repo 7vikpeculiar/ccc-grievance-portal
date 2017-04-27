@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+            <legend>Register</legend>
+            <p class="message text-danger"></p>
+            <div class="form-group">
+                <label for="register-name">Name</label>
+        <form action='http://127.0.0.1:5050/addUser', method='POST'> 
+                <input type="text" class="form-control" id="register-name" name="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" class="form-control" id="register-email" name="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="register-username">Username</label>
+                <input type="text" class="form-control" id="register-username" name="username" placeholder="Enter your Username">
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" class="form-control" id="register-password" name="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+        <form action='http:127.0.0.1/login' , method='GET'>
+        <p>
+        Already have an account?
+        </p>
+        <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>

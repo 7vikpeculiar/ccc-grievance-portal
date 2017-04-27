@@ -1,0 +1,21 @@
+<html>
+<body>
+    <h1>GHMC Call</h1>
+        <h1>Request List</h1>
+        <table border='3'>  
+    <tr>
+        <th>Username</th> 
+        <th>Delete</th>
+    </tr>
+    {% for name in comps%}
+    <form action='http://127.0.0.1:5050/delghmc/{{name.username}}' method='POST'>
+    <tr>
+        <td><input type='text' value='{{name.username}}' readonly></td>
+        <td><input type='submit' value='Delete'></td>
+    </tr>
+    </form>
+    <tr>
+    {% endfor %}
+    </table><br/><br/>
+</body>
+</html>

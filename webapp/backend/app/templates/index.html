@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CCC Grievance</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<h1> Login as User</h1>
+    <form action='http://127.0.0.1:5050/loginchk' ,method='GET'>      
+        <input type="text" name='username' placeholder="Username" id='user'><br/><br/>
+        <input type='password' name='password' placeholder="Password" id='pass'><br/><br/>
+        <input type='submit' value='Login'>
+    </form>
+        <p>Don't have an account?   
+<form action='http://127.0.0.1:5050/addUser' ,method='POST'>      
+    <input type='submit' value='Sign Up'></input></p>
+</form>
+        <h1>Login as Admin</h1>
+
+          <input type="text" name="adminname" placeholder="Adminname" id='useradm'><br/><br/>
+
+        <input type='password' name='passwordadmin' placeholder="PasswordAdmin" id='passadm'><br/><br/>
+        <input type='submit' onclick='loginAdm()' value='LoginAdm'>
+
+</body>
+</html>
