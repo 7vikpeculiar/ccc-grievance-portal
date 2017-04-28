@@ -48,8 +48,8 @@ def view_complain():
 def view_user_complain(user):
     if 'user_name' not in session or session['user_name'] != user:
             return redirect('http://127.0.0.1:5050/login')
-    if session['role'] == True:
-            return redirect('http://127.0.0.1:5050/admin/home')
+    #if session['role'] == True:
+    #        return redirect('http://127.0.0.1:5050/admin/home')
     out=Complain.query.filter_by(username=user).all()
     fin=[ele.serialize() for ele in out]
     return render_template('usercomplain.html',comps=fin,tbox=user)

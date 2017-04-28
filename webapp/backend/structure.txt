@@ -23,51 +23,6 @@
 │   │   ├── __init__.pyc
 │   │   ├── models.py
 │   │   └── models.pyc
-│   ├── static
-│   │   ├── css
-│   │   │   └── vendor
-│   │   │       └── bootstrap.min.css
-│   │   ├── js
-│   │   │   ├── addcanine.js
-│   │   │   ├── app.js
-│   │   │   ├── auth-manager.js
-│   │   │   ├── complain.js
-│   │   │   ├── createac.js
-│   │   │   ├── helpers.js
-│   │   │   ├── home.js
-│   │   │   ├── jquery.js
-│   │   │   ├── login.js
-│   │   │   ├── routes.js
-│   │   │   ├── vendor
-│   │   │   │   ├── bootstrap.min.js
-│   │   │   │   ├── handlebars.min.js
-│   │   │   │   ├── jquery.min.js
-│   │   │   │   └── page.js
-│   │   │   └── view-manager.js
-│   │   └── templates
-│   │       ├── addcanine.html
-│   │       ├── adminadopt.html
-│   │       ├── adminadopt.jpg
-│   │       ├── adminhome.html
-│   │       ├── adopt.html
-│   │       ├── adopt.jpg
-│   │       ├── bg.jpg
-│   │       ├── callghmc.html
-│   │       ├── canines.jpg
-│   │       ├── complain.html
-│   │       ├── complain.jpg
-│   │       ├── createac.html
-│   │       ├── dd.jpg
-│   │       ├── ghmc.jpg
-│   │       ├── home.html
-│   │       ├── insdelcanine.html
-│   │       ├── listcomplain.html
-│   │       ├── login1.html
-│   │       ├── login.html
-│   │       └── register.html
-│   ├── templates
-│   │   ├── dd.jpg
-│   │   └── index.html
 │   └── users
 │       ├── controllers.py
 │       ├── controllers.pyc
@@ -82,4 +37,3 @@
 ├── run.py
 └── structure.txt
 
-12 directories, 70 files

@@ -10,7 +10,6 @@
         <form action='http://127.0.0.1:5050/addcomplain/{{tbox}}' method='POST'>
             <input type='text' value='{{tbox}}' name='username' readonly></br/>
             <input type='text' placeholder='Title' name='name'></br>
-<<<<<<< HEAD
             <br/>
             Dogs List <br/>
             <select multiple='multiple'>
@@ -18,24 +17,12 @@
             <option value='{{ele.name}}'>{{ele.name}}</td>
             {% endfor %}
             <select><br/>
-=======
-            Dogs List <br/>
-            <!--select>
-            {% for ele in comps %}
-            <option value='{{ele.username}}'>{{ele.username}}</td>
-            {% endfor %}
-            <select--><br/>
->>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
             <input type='text' placeholder='Comment' name='description'></br>
             </br>
             <input type='submit' value='Complain'>
         </form>
         <form action='http://127.0.0.1:5050/home/{{tbox}}' method='GET'>
-<<<<<<< HEAD
             <input type='submit' value='Back to Home'>
-=======
-            <input type='submit' value='Back to Login'>
->>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
         </form>
     
 </body>

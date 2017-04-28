@@ -2,13 +2,8 @@
 <head>
 <title>
 	List Complaints
-<<<<<<< HEAD
 </title>
 	<meta charset='UTF8'>
-=======
-	<meta charset='UTF8'>
-</title>
->>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
 </head>
 <body>
 	<h1>List of Complaints</h1>
@@ -21,11 +16,7 @@
         <tr>
         {% for ele in comps %}
             <form action='http://127.0.0.1:5050/deletecomplain' method='POST'>
-<<<<<<< HEAD
             <td><input type='text' name='user' value='{{ele.username}}' readonly</td>
-=======
-            <td>{{ele.username}}</td>
->>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
             <td><input type='text' name='name' value='{{ele.name}}' readonly></td>
             <td>{{ele.description}}</td>
             <td>
