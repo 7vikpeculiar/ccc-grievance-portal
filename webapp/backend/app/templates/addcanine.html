@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>        
+        CCC-Grievance Portal-Add canine
+    </title> 
+        <meta charset='UTF8'>
+</head>
+    <body>
+        <h1>Add Canine</h1>
+        <br/>
+        <form action='http://127.0.0.1:5050/addDog' method='POST'>
+        <input type='text' name='name' placeholder="Name" id="name"><br/><br/>
+        <input type='text' name='dlocation' placeholder="Location" id="dlocation"><br/><br/>
+        <input type='text' name='describe' placeholder="Description" id="describe"><br/><br/>
+        <input type="file" name="pic" accept="image/*" id='img'>
+        <input type='submit' value='Request'>
+        <br/><br/>
+        </form>
+    </body>
+    <form action='http://127.0.0.1:5050/login' method='GET'>
+        <input type='submit' value='Back to Home'>
+    </form>
+</html>

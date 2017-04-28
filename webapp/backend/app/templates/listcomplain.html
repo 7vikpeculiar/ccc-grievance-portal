@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>
+	List Complaints
+	<meta charset='UTF8'>
+</title>
+</head>
+<body>
+	<h1>List of Complaints</h1>
+        <table border='3'>
+        <tr>
+            <th>Users</th>
+            <th>Name of Complaint </th>
+            <th>Description</th>
+            <th>Delete</th>
+        {% for ele in comps %}
+        <tr>
+                <form action='http://127.0.0.1:5050/deletecomplain' method='POST'>
+            <td>{{ele.username}}</td>
+            <td><input type='text' name='name' value='{{ele.name}}' readonly></td>
+            <td>{{ele.description}}</td>
+            <td>
+                <input type='submit' value='Delete'>
+            </td>
+            </form>
+        </tr>
+        {% endfor %}
+        </table>
+</html>

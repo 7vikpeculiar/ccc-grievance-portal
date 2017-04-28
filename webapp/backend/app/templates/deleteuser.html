@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>
+	List USERS
+</title>
+	<meta charset='UTF8'>
+</head>
+<body>
+	<h1>List of Users</h1>
+        <table border='3'>
+        <tr>
+            <th>Users</th>
+            <th>Delete</th>
+        <tr>
+        {% for ele in comps %}
+            <form action='http://127.0.0.1:5050/deleteUser' method='POST'>
+            <td><input type='text' name='username' value='{{ele.username}}' readonly></td>
+            <td>
+                <input type='submit' value='Delete'>
+            </td>
+            </form>
+        </tr>
+        {% endfor %}
+        </table>
+        <form action='http://127.0.0.1:5050/admin/home' method='GET'>
+        <input type='submit' value='Back to Home'>
+        </form>
+</html>

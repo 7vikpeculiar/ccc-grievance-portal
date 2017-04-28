@@ -9,8 +9,8 @@ mod_maps= Blueprint('maps', __name__)
 @mod_maps.route('/addmap',methods=['POST'])
 def addMap():
 	if request.method=='POST':
-		cname=request.form('cname')
-		dname=request.form('dname')
+		cname=request.form['cname']
+		dname=request.form['dname']
 		try:
                     if not cname or not dname:
 			return make_response('error: all fields are required')
@@ -20,4 +20,9 @@ def addMap():
 		    return make_response('success:success',200,None)
 		except:
 	 		return make_response('error:cannot be mapped',400,None)
+
+@mod_maps.route('/getmaps',methods=['GET'])
+def getMap():
+     out=Map.query.all()
+     return jsonify(out)
 

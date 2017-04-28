@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>
+	List Dogs
+</title>
+	<meta charset='UTF8'>
+</head>
+<body>
+	<h1>List of Dogs</h1>
+        <table border='3'>
+        <tr>
+            <th>Dogs</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Approve?/</th>
+        {% for ele in comps %}
+        <tr>
+            <form action='http://127.0.0.1:5050/approveDog' method='POST'>
+            <td><input type='text' name='name' value='{{ele.name}}' readonly</td>
+            <td>{{ele.describe}}</td>
+            <td>{{ele.location}}</td>
+            <td>
+                <input type='submit' value='Approve'>
+            </td>
+            </form>
+        </tr>
+        {% endfor %}
+        </table>
+        <form action='http://127.0.0.1:5050/admin/home' method='GET'>
+              <input type='submit' value='Back to Home'>
+        </form>
+</html>

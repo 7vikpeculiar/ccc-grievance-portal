@@ -8,10 +8,10 @@ class Complain(db.Model):
 	id=db.Column(db.Integer,primary_key=True,autoincrement=True)
 	username=db.Column(db.String(40),db.ForeignKey(User.username))
 	description=db.Column(db.String(500),nullable=False)
-	name=db.Column(db.String(40),unique=True)#title_of_complain
+	name=db.Column(db.String(40),unique=True)   #title_of_complain
 	comment=db.relationship('Comment',backref="complain",cascade="all, delete-orphan" ,lazy='dynamic')
 
-	def __init__(self,username,description,name):
+	def __init__(self,username,name,description):
 		self.username=username
 		self.name=name
 		self.description=description

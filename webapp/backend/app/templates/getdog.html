@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>
+	List Complains              
+</title>
+	<meta charset='UTF8'>
+</head>
+<body>
+	<h1>Complains</h1>
+        <form action='http://127.0.0.1:5050/addcomplain/{{tbox}}' method='POST'>
+            <input type='text' value='{{tbox}}' name='username' readonly></br/>
+            <input type='text' placeholder='Title' name='name'></br>
+            <br/>
+            Dogs List <br/>
+            <select multiple='multiple'>
+            {% for ele in names %}
+            <option value='{{ele.name}}'>{{ele.name}}</td>
+            {% endfor %}
+            <select><br/>
+            <input type='text' placeholder='Comment' name='description'></br>
+            </br>
+            <input type='submit' value='Complain'>
+        </form>
+        <form action='http://127.0.0.1:5050/home/{{tbox}}' method='GET'>
+            <input type='submit' value='Back to Home'>
+        </form>
+    
+</body>
+</html>

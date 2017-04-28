@@ -8,13 +8,16 @@ class User(db.Model):
 	email=db.Column(db.String(40),unique=True)
 	username=db.Column(db.String(40),unique=True,primary_key=True)
         password = db.Column(db.String(20))		
-		
-
-	def __init__(self, name,email,username,password):
+        callghmc = db.Column(db.Boolean)
+	is_admin = db.Column(db.Boolean)
+        def __init__(self, name,email,username,password):
         	self.name=name
 		self.email=email
                 self.username=username
 		self.password = generate_password_hash(password)
+                self.callghmc = False
+                self.is_admin= False 
+                 
         def check_password(self, password):
                 return check_password_hash(self.password, password)
 
@@ -22,5 +25,4 @@ class User(db.Model):
 		"<username: %r>" %self.username
 
 	def serialize(self):
-		return {'name': self.name,'email': self.email,'username': self.username}
-
+            return {'name': self.name,'email': self.email,'username': self.username ,'password': self.password,'admin' : self.is_admin}
