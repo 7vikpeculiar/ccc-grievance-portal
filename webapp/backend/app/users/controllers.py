@@ -1,14 +1,14 @@
 from flask import * 
-from app import db
+from app import db,requires_admn_auth
 from sqlalchemy.exc import IntegrityError
 from app import requires_auth
 from app.users.models import User
-from app.maps.models import Map
 from app.complains.models import Complain
-mod_users = Blueprint('users', __name__)
+mod_users = Blueprint('users', __name__,url_prefix='/api')
 
 @mod_users.route('/login', methods=['GET'])
 def check_login():
+<<<<<<< HEAD
     if 'user_name' in session:
         user = User.query.filter(User.username == session['user_name']).first()
         return redirect('http://127.0.0.1:5050/home/'+user.username)
@@ -21,9 +21,16 @@ def check_admin_login():
             user = User.query.filter(User.username == session['user_name']).first()
             return redirect('http://127.0.0.1:5050/admin/home')
     return render_template('index.html')
+=======
+    if 'user_email' in session:
+        user = User.query.filter(User.email == session['user_email']).first()
+        return jsonify(success=True, user=user.serialize())
+    return jsonify(success=False), 401
+>>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
 
 @mod_users.route('/loginchk', methods=['GET'])
 def login():
+<<<<<<< HEAD
     if request.method == 'GET': 
         try:
             username = request.args['username']
@@ -88,24 +95,58 @@ def callghmc_user(user):
         return redirect('http://127.0.0.1:5050/home/'+user) 
 
 @mod_users.route('/addUser', methods=['POST','GET'])
+=======
+    try:
+        user_email = request.form['user_email']
+        password = request.form['password']
+	role=request.form['any']
+    except KeyError as e:
+        return jsonify(success=False, message="%s not sent in the request" % e.args), 400
+    user = User.query.filter(User.email == user_email).first()
+    if user is None or not user.check_password(password):
+        return jsonify(success=False, message="Invalid Credentials"), 400
+    if user.role!=role:
+	return jsonify(success=False,message="Invalid Credentials"), 400
+    session['user_role']=user.role
+    session['user_email'] = user.email
+    return jsonify(success=True, user=user.serialize())
+
+@mod_users.route('/logout', methods=['POST'])
+def logout():
+	session.pop('user_email')
+	session.pop('user_role')
+	return jsonify(success=True)
+@mod_users.route('/register', methods=['POST'])
+>>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
 def add_user():
         if request.method =='GET':
                 return render_template('register.html')
 	elif request.method=='POST':
 		try:
+<<<<<<< HEAD
 			print '1'
                         name=request.form['name']
 			email=request.form['email']
 			username=request.form['username']
+=======
+			name=request.form['name']
+			user_email=request.form['user_email']
+>>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
 			password=request.form['password']
+			role='user'
 		except KeyError as e:
 			return jsonify(success=False, message="%s not sent in the request" % e.args), 400
 		if '@' not in email:
 			return jsonify(success=False, message="Please enter a valid email"), 400
+<<<<<<< HEAD
 		if not name  or not email or not username or not password:
+=======
+
+		if not name  or not email or not password:
+>>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
                 	return jsonify(success=False,message="all fields are required"), 400
 		try:
-			user=User(name,email,username,password)
+			user=User(name,email,password,role)
 			db.session.add(user)
 			db.session.commit()
 		except IntegrityError as e:
@@ -113,6 +154,7 @@ def add_user():
                 #return jsonify(success=True)
                 return redirect('http://127.0.0.1:5050/addUser')
 
+<<<<<<< HEAD
 @mod_users.route('/deleteUser', methods=['GET','POST'])
 def delete_users():
         if 'user_name' not in session:
@@ -172,4 +214,35 @@ def all_normals():
 		else:
 			return jsonify(success=False, message="enter the name to be deleted"), 400
 
+=======
+@mod_users.route('/user/<id>/delete', methods=['POST'])
+@requires_admn_auth
+def delete_users(id):
+	user=User.query.filter(User.email==id).first()
+	if user is None:
+		return jsonify(success=False), 404
+	else:
+		db.session.delete(user)
+		db.session.commit()
+		return jsonify(success=True)
 		
+
+	
+@mod_users.route('/user',methods=['GET'])
+@requires_admn_auth
+def all_users():
+        return jsonify(users=[i.serialize() for i in User.query.all()])
+>>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
+		
+@mod_users.route('/user/<id>/approve',methods='POST')
+@requires_admn_auth
+def approve_user(id):
+	user=User.query.filter(User.email==id).first()
+	if user is None:
+		return jsonify(success=False), 404
+	else:
+	 	user.role='admin'
+	 	db.session.commit()
+	 	return jsonify(success=True)
+	 	
+	

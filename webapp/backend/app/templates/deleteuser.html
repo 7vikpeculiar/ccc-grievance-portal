@@ -14,7 +14,11 @@
         <tr>
         {% for ele in comps %}
             <form action='http://127.0.0.1:5050/deleteUser' method='POST'>
+<<<<<<< HEAD
             <td><input type='text' name='username' value='{{ele.username}}' readonly></td>
+=======
+            <td><input type='text' name='username' value='{{ele.name}}' readonly></td>
+>>>>>>> ced0be31bd47d46087c9d879b71e5101a6ff4810
             <td>
                 <input type='submit' value='Delete'>
             </td>
