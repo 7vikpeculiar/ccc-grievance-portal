@@ -3,12 +3,35 @@
 <head>
     <title>CCC Grievance</title>
     <meta charset="utf-8">
+    <style>
+        div{
+            background-color:#FFA07A;
+        }
+        h1{
+            color:#000080;
+        }   
+    input[type=text] {
+       border:2px solid #000080;
+    }
+    input[type=password]{
+       border:2px solid #000080;
+    }
+
+body {
+    
+    background: url("http://cdn.abclocal.go.com/content/creativecontent/images/cms/406006_1280x720.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
 </head>
 <body>
-<h1> Login as User</h1>
+    <h1> Login as User</h1>
     <form action='http://127.0.0.1:5050/loginchk' ,method='GET'>      
-        <input type="text" name='username' placeholder="Username" id='user'><br/><br/>
-        <input type='password' name='password' placeholder="Password" id='pass'><br/><br/>
+        <input type="text" name='username' size='30' placeholder="Username" id='user'><br/><br/>
+        <input type='password' name='password' size='30' placeholder="Password" id='pass'><br/><br/>
         <input type='submit' value='Login'>
     </form>
         <p>Don't have an account?   
@@ -16,12 +39,11 @@
     <input type='submit' value='Sign Up'></input></p>
 </form>
         <h1>Login as Admin</h1>
-<form action='http://127.0.0.1:5050/adminchk' ,method='POST'>
 
-          <input type="text" name="username" placeholder="Adminname" id='useradm'><br/><br/>
+          <input type="text" name="adminname" size='30' placeholder="Adminname" id='useradm'><br/><br/>
 
-        <input type='password' name='password' placeholder="PasswordAdmin" id='passadm'><br/><br/>
-        <input type='submit' value='LoginAdm'>
-        </form>
+        <input type='password' name='passwordadmin'size='30'  placeholder="PasswordAdmin" id='passadm'><br/><br/>
+        <input type='submit' onclick='loginAdm()' value='LoginAdm'>
+
 </body>
 </html>

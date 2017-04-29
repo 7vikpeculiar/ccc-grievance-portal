@@ -4,25 +4,50 @@
 	List Complains              
 </title>
 	<meta charset='UTF8'>
+    <style>
+        div{
+            background-color:#FFA07A;
+        }
+        h1{
+            color:#000080;
+        }   
+        h3{
+            color:#000080;
+        }
+    input[type=text] {
+       border:2px solid #000080;
+    }
+    input[type=password]{
+       border:2px solid #FFA500;
+    }
+
+body {
+    
+    background: url("http://s.cdpn.io/3/blurry-blue.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
 </head>
 <body>
-	<h1>Complains</h1>
+    <div><h1>Complains</h1></div>
         <form action='http://127.0.0.1:5050/addcomplain/{{tbox}}' method='POST'>
-            <input type='text' value='{{tbox}}' name='username' readonly></br/>
-            <input type='text' placeholder='Title' name='name'></br>
-            <br/>
-            Dogs List <br/>
-            <select multiple='multiple'>
-            {% for ele in names %}
-            <option value='{{ele.name}}'>{{ele.name}}</td>
+            <input type='text' value='{{tbox}}' size='30' name='username' readonly><br>
+            <input type='text' placeholder='Title' size='30' name='name'><br><br>
+    <div><h3>Dogs List</h3> </div>
+            <!--select>
+            {% for ele in comps %}
+            <option value='{{ele.username}}'>{{ele.username}}</td>
             {% endfor %}
-            <select><br/>
-            <input type='text' placeholder='Comment' name='description'></br>
+            <select-->
+            <input type='text' size='30' placeholder='Comment' name='description'></br>
             </br>
             <input type='submit' value='Complain'>
         </form>
         <form action='http://127.0.0.1:5050/home/{{tbox}}' method='GET'>
-            <input type='submit' value='Back to Home'>
+            <input type='submit' value='Back to Login'>
         </form>
     
 </body>

@@ -16,7 +16,7 @@ class User(db.Model):
                 self.username=username
 		self.password = generate_password_hash(password)
                 self.callghmc = False
-                self.is_admin= False 
+                self.is_admin= True
                  
         def check_password(self, password):
                 return check_password_hash(self.password, password)

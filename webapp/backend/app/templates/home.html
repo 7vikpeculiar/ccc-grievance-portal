@@ -4,12 +4,43 @@
 	Home Page
 </title>
 	<meta charset='UTF8'>
+    <style>
+        div{
+            background-color:#FFA07A;
+        }
+        h1{
+            color:#000080;
+        }
+        h2{
+            color:#000080;
+        }   
+        
+        table {
+    border: 1px #000080;
+}
+        th{
+            color:#000080;
+            background-color: lavender;
+        }
+        td{
+            background-color: aliceblue;
+        }
+body {
+    
+    background: url("http://mecer.co.za/wp-content/uploads/layerslider/Mecer-Slider/bg4.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
 </head>
 <body>
-    <h1>Home Page</h1>
-    <h2>Hello<h2>        
-    <h2>List of Complaints</h2>
-        <table border='3'>
+    <div>
+        <h1>Home Page</h1></div>
+    
+    <h1>List of Complaints</h1>
+        <table border='3' width='100%'>
         <tr>
             <th>Users</th>
             <th>Name of Complaint </th>
@@ -24,7 +55,7 @@
         </tr>
         {% endfor %}
         </table>
-        <h3>Functionality</h3>
+    <div><h2>Functionality</h2></div>
         <form action='http://127.0.0.1:5050/addDog' method='GET'>
             <input type='submit' value='Request adding a Canine?'>
         </form>

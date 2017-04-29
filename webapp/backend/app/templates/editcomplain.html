@@ -4,10 +4,37 @@
 	List Complaints
 </title>
 	<meta charset='UTF8'>
+    <style>
+        div{
+            background-color:#FFA07A;
+        }
+        h1{
+            color:#000080;
+        }   
+        th{
+            color:#000080;
+            background-color: lavender;
+        }
+        td{
+            background-color: aliceblue;
+        }
+        table {
+    border: 1px #000080;
+}
+
+body {
+    
+    background: url("http://centuryseven.com/sliderimages/bg.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
 </head>
 <body>
-	<h1>List of Complaints</h1>
-        <table border='3'>
+    <div><h1>List of Complaints</h1></div>
+        <table border='3' width='100%'>
         <tr>
             <th>User</th>
             <th>Name of Complaint </th>
@@ -25,7 +52,7 @@
             </form>
         </tr>
         {% endfor %}
-        </table>
+        </table><br>
             <form action='http://127.0.0.1:5050/home/{{tbox}}' method='GET'>
                 <input type='submit' value='Go back to home'>
             </form>

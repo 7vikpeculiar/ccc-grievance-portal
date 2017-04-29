@@ -4,10 +4,37 @@
 	List Dogs
 </title>
 	<meta charset='UTF8'>
+    <style>
+        div{
+            background-color:lightsalmon;
+        }
+        h1{
+            color:#000080;
+        }   
+        th{
+            color:#000080;
+            background-color: lavender;
+        }
+        td{
+            background-color: aliceblue;
+        }
+        table {
+    border: 1px #000080;
+}
+
+body {
+    
+    background: url("http://mecer.co.za/wp-content/uploads/layerslider/Mecer-Slider/bg4.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
 </head>
 <body>
-	<h1>List of Dogs</h1>
-        <table border='3'>
+    <div><h1>List of Dogs</h1></div>
+        <table border='3' width='100%'>
         <tr>
             <th>Dogs</th>
             <th>Description</th>
@@ -25,7 +52,7 @@
             </form>
         </tr>
         {% endfor %}
-        </table>
+        </table><br>
         <form action='http://127.0.0.1:5050/admin/home' method='GET'>
               <input type='submit' value='Back to Home'>
         </form>

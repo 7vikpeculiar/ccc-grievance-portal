@@ -4,17 +4,37 @@
         CCC-Grievance Portal-Add canine
     </title> 
         <meta charset='UTF8'>
+    <style>
+        div{
+            background-color:#FFA07A;
+        }
+        h1{
+            color:#000080;
+        }   
+    input[type=text] {
+       border:2px solid #000080;
+    }
+
+body {
+    
+    background: url("http://www.golden-retriever.com/wp-content/uploads/2015/06/cute-golde-retriever-happy.jpg") no-repeat center center fixed; 
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
 </head>
     <body>
-        <h1>Add Canine</h1>
+        <div><h1>Add Canine</h1></div>
         <br/>
         <form action='http://127.0.0.1:5050/addDog' method='POST'>
-        <input type='text' name='name' placeholder="Name" id="name"><br/><br/>
-        <input type='text' name='dlocation' placeholder="Location" id="dlocation"><br/><br/>
-        <input type='text' name='describe' placeholder="Description" id="describe"><br/><br/>
-        <input type="file" name="pic" accept="image/*" id='img'>
+        <input type='text' name='name' size='30' placeholder="Name" id="name"><br/><br/>
+        <input type='text' name='dlocation' size='30' placeholder="Location" id="dlocation"><br/><br/>
+        <input type='text' name='describe' size='30' placeholder="Description" id="describe"><br/><br/>
+        <input type="file" name="pic" accept="image/*" id='img'><br><br>
         <input type='submit' value='Request'>
-        <br/><br/>
+        <br/>
         </form>
     </body>
     <form action='http://127.0.0.1:5050/login' method='GET'>
