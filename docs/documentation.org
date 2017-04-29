@@ -1,0 +1,394 @@
+#+title: Documentation
+#+SETUPFILE: ../../org-templates/level-2.org
+#+EXCLUDE_TAGS: boilerplate
+#+PROPERTY: session **
+#+PROPERTY: results output
+#+PROPERTY: exports code
+#+TAGS: boilerplate(b) notes(n) solution(s)
+
+* General description:
+
+- This portal is used to register your complaints about the violent canines in a community.
+- The portal consists of Dogs,Users and Admin in our database.
+
+* Functionality:
+
+There are two types of users: user and Admin
+- A user can post videos /photos of the incident that he is complaining about.
+- He can delete / edit his post.
+- He can tag one or more dogs to his complain.
+- A user can ask for addition of new dogs by requesting the admin and can also upload a picture.
+- User can also call GHMC and check the status of his complain.
+- Admin can do all the things a user can and in addition to it , he has approve/cancel requests by the user or
+   Delete/add a canine.
+- In addition to it he can put the dogs for adoption 
+** Differences between the status of a User and an Admin
+- A User can only request for additions of dogs but only an admin can approve  
+- User can sign up in the portal but only can be made an admin by another admins approval 
+- A admin has a user account and an admin account with the same credentials
+- User can delete and edit only his complains but an Admin is able to delete all inappropriate complains
+- User can make complains but they may be disapproved by Admins
+- User can call request Calling GHMC but the final decision will lie with the admin.
+** Special Status of Admin
+- A root admin is present
+- He will have the ability to make other admins.
+- He can add a user 
+- Or Delete one
+- He can approve complaints 
+- He can delete dogs
+- He can delete unapproved dogs
+- He can make admins
+
+* Working of the portal:
+
+The portal opens with the login page, where the already existing users can login whereas those new can 
+Register themselves.Loging in takes them to the home page where all complains can be seen.He can 
+Complain,add a canine, call GHMC through the buttons present on the home page.Clicking those buttons 
+Him to their respective pages.
+
+* Model:
+** Dog
+*** The Link to the [[../webapp/backend/app/dogs/models.py][Dogs.Models.py]]
+- We have 4 fields : accepted , name , location, describe.
+- Name is given to the dog.
+- Description of the dog
+- Location where the dog is found
+- Accepted is initially set as false and becomes true only after the details of the dog goes 
+- To backend.
+- Delete_dog deletes a dog.
+- Get_dog gives the list of all dogs since they are needed when we need to delete any dog from 
+- Our list 
+** User
+*** The Link to the [[../webapp/backend/app/users/models.py][User.Models.py]]
+- We have 5 fields : name, email, password, role, check_password 
+- Name gives name to the user
+- Email gives email to the user
+- Password id the password of the user account
+- Role lets us know whether he is a user or admin
+- Check_password checks the password
+- Check_login checks if a user is logged in
+- Delete_user for admin to delete a user
+- All_users gives the list of all users
+- Delete_users to delete a user for admin
+- Logout to pop from the season
+- login for logging in a user
+
+** Complain
+*** The Link to the [[../webapp/backend/app/complains/models.py][Complains.Models.py]]
+- We have 5 fields : ID, useremail, description, name ,done.
+- This allots a unique id to a complain, user-email to know about the user who is complaining
+- Allows a description for the dog , name for the subject , done to complete.
+- AddComplain to add a complaint
+- Get _all_complains gives all the complains.
+- Get_user_complains gives the complains of the user.
+- Mark_done marks a complain.
+- Delete_complain to delete a complain.
+
+** Map
+*** The Link to the [[../webapp/backend/app/maps/models.py][Maps.Models.py]]		
+- We have 3 fields : ID, Dogname, complain name.
+- It maps a set of dogs to a complain.
+- ID denotes a key.
+- If the fields are empty addMap returns error else creates a map  
+
+
+* The Routes
+* Controllers for Dogs
+** The Link to the [[../webapp/backend/app/dogs/controllers.py][Dogs.controllers.py]]
+** /addDog
+*** GET
+- The method redirects to the login page if the user is not logged in
+and to the home page if the user is not an admin
+- Else it renders the template [[../webapp/backend/templates/addcanine.html][addcanine.html]]
+*** POST
+- If the parameters are not sufficient it redirects to [[../webapp/backend/templates/param.html][param.html]] 
+- Else it tries to add a new dog
+- Else if there is a breach of //referential integrity// then it again redirects to param.html (linked above).
+
+** /dogs
+*** GET
+- The method gets all the dogs present and returns it as a *json* object.
+
+** /unapprovedDogs
+*** GET
+- The method redirects to login page if the user is not logged in 
+and returns a json message as unauthorized if not logged in.
+- Else it filters the dogs having accepted value as false i.e the incomplete dogs which are unapproved and fills it to the drop-down list one-by-one thus rendering the template [[../webapp/backend/templates/unapproveddogs.html][unapproveddogs.html]]
+*** POST
+- The name of the dog is sent via a form. So, if the name is not received then it returns a response =error:enter fields properly=
+- If received it deletes the dog from the list of unapproved dogs
+
+** /acceptedDogs
+*** GET
+- Returns the dogs that have been accepted value equal to true
+- Renders the template [[../webapp/backend/templates/getdog.html][getdog.html]]
+
+** /approveDog
+*** GET
+- The method redirects to login page if the user is not logged in 
+and returns a json message as unauthorized if not logged in.
+- Else it filters the dogs having accepted value as false i.e the incomplete dogs which are unapproved and fills it to the drop-down list one-by-one thus rendering the template [[../webapp/backend/templates/approvedog.html][approvedog.html]]
+*** POST
+- This filters all the dogs by their name and approved Dog name and asking it's accepted value true and redirects again to =approveDog=
+
+** /deleteDog
+*** GET
+- The method redirects to login page if the user is not logged in 
+and returns a json message as unauthorized if not logged in.
+- Else it filters the dogs having accepted value as false i.e the incomplete dogs which are unapproved and fills it to the drop-down list one-by-one thus rendering the template [[../webapp/backend/templates/deletedog.html][deletedog.html]]
+*** POST
+- The name of the dog is sent via a form. So, if the name is not received then it returns a response
+=error:enter fields properly=
+- If received it deletes the dog from the list of dogs
+    
+* Controllers for Users
+** The Link to the [[../webapp/backend/app/users/controllers.py][Users.controllers.py]]
+** /login
+*** GET
+- This is the default route called when the user tries to access any 
+other page.
+- If logged in, it takes the user to the user home page.
+- If logged in as admin the admin is taken to the admin home page which is [[./../webapp/backend/app/templates/index.html][index.html]].
+  
+** /adminlogin   
+*** GET  
+- This is the default route called when the admin tries to access any 
+other page.
+- If logged in as  user ,it takes the user to the user home page 
+so as to say that the route is unaccesible to him.
+- If logged in as admin the admin is taken to the admin home page which is [[./../webapp/backend/app/templates/index.html][index.html]].
+
+** /loginchk
+*** GET
+- Adds the user's name in the session object if the user exists
+and assigns the role as false implying that the user is accessing as a 
+user but not as an admin even if he is one.
+ 
+** /adminchk
+*** GET
+- Adds the user's name in the session object iff the user exists and assigns the role as True.
+-It implies that the user is an admin.
+
+** /logout
+*** POST
+- Pops the sessions' user_name and role fields.
+- Redirects to the Login Page.
+
+** /admin/callghmc
+*** GET
+- Unaccessible unless the logged in user is an admin.
+- Returns a template containg a list of all users who have requesed for a GHMC Call.
+- The admin deletes the user after the necessary actions are taken.
+- Thus it renders to [[./../webapp/backend/app/templates/ghmclist.html][GHMC List]].
+
+** /callghmc/<user>
+*** POST
+- Sends a POST request to change the status of the user from /not called GHMC/
+to /called GHMC/.
+
+** /delghmc/<user>
+*** POST
+- Sends a POST request to change the status of the user from /called GHMC/
+to /not called GHMC/.
+
+** /addUser
+*** GET
+- Returns a template showing a sign up form [[./../webapp/backend/app/templates/register.html][register.html]].
+*** POST
+- Tries to add the user to the database.
+- It Checks the /cardinality constraints/ and /referential integrity/
+- It refreshes the page by reloading the page via GET.
+
+** /deleteUser
+- Only an admin is able to access this route.
+*** GET
+- Returns a template showing a showing the delete form [[./../webapp/backend/app/templates/deleteuser.html][deleteuser.html]].
+*** POST
+- Tries to delete the user from the database.
+- It Checks the /cardinality constraints/ and /referential integrity/.
+- It refreshes the page by reloading the page via GET.
+
+** /users
+*** GET
+- Accessible only  to the admin.
+- He can view all the users in a *JSON* format.
+ 
+** /normals
+- Accessible only  to the admin. 
+*** GET
+- Returns a form containg the list of all users and can 
+be made admins
+- It renders a template showing the normalusers [[./../webapp/backend/app/templates/normlusers.html][normalusers.html]].
+*** POST
+- Makes the normal user an admin.
+
+* Controllers for Complains
+** The Link to the [[../webapp/backend/app/complains/controllers.py][Complains.controllers.py]]
+** /addcomplain/<user>
+*** GET 
+- If user is not logged in then it redirects to the login page 
+- If he is unauthorized then it returns to home page.
+- Out takes the list of dogs (approved) and renders it as a drop-down list 
+  for complain about a dog in [[./../webapp/backend/app/templates/getdog.html][getdog.html]].
+*** POST
+- If any one of the username or description or name is not present then it renders  [[./../webapp/backed/app/templates/param.html][param.html]]
+- Else creates a newcomplain with the parameters name, description,username of the user who sent 
+thus adding it to the database.
+- If any of above doesn't happen then renders into [[./../webapp/backend/app/templates/getdog.html][getdog.html]] which in turn is an error.
+- It checks the /referntial integrity/ also.
+** /admin/home
+*** GET
+- If the user is not logged in then it redirects to login page [[./../webapp/backend/app/templates/index.html][index.html]].
+- Returns a json object for the complains and returns the list of complains into [[./../webapp/backend/app/templates/adminhome.html][Homepage of Admin]].
+
+** /viewcomplains/<user>
+*** GET
+- If the user is not logged in or if he/she is unauthorized then it redirects to login page and home page respectively.
+- It takes the usernames of all users and his complaints, renders them into a template [[./../webapp/backend/app/templates/usercomplain.html][usercomplain.html]].
+
+** /edit/<user>
+*** GET
+- If the user is not logged in or if he/she is unauthorized then it redirects to login page and home page respectively.
+- It takes the complains of the user based on his username and renders it so that he could edit his complain to [[./../webapp/backend/app/templates/editcomplain.html][editcomplain.html]].
+
+** /editcomplain/<user>
+*** POST
+- Filters the complain based on description, user and username so that he could edit that particular post. 
+- Then, it redirects to edit page again so as to refresh it.
+- If any of these parameters are not sent or valid it returns a response =error: Couldnot edit the complain=
+
+** /complains
+*** GET
+- Returns a json object by querying on all the complains.
+- Accessible only to the admin.
+** /home/<user>
+*** GET
+- If the user is not logged in, returns a json response =Please Login First=.
+- If the user tries to access others home pages then it returns a json response =Unauthorized=.
+- His homepage has list of all complains rendered into [[./../webapp/backend/app/templates/home.html][home.html]] similar to a *news feed* in sites like facebook.
+
+** /deletecomplain
+*** GET
+- If user is not logged in , it redirect him/her to login page.
+- It is accessible only to an admin
+- Then it renders into [[./../webapp/backend/app/templates/admindel.html][admindel.html]].
+*** POST
+- It deletes the complaint of a user if he want to delete based on the name of the complaint.
+- Thus it redirects to home after deletion of the complaint 
+- Else returns a response =error:enter fields properly=.
+- It follows a /referential integrity/ giving one name for one complaint.
+
+** /admin/deletecomplain
+*** POST
+- If user is not logged in , redirect him/her to login page.
+- This complain deletion is meant for admin.
+- Request a complaint which is to be deleted based on the name and thus redirect to home page.
+- It ensures /referential integrity/ giving one name for one complaint same as stated above.
+- Else returns a response =error:enter fields properly=.
+
+* Controllers for Maps
+** The Link to the [[../webapp/backend/app/maps/controllers.py][Maps.controllers.py]]
+** /addmap
+*** POST
+- It requests complain name and dogname.
+- If anyone of these parameters is not present return a response =error:all fields are required=.
+- Thus it creates a complain and retrns a make response =success=.
+- If any parameter not sent returns a response =error:cannot be mapped=.
+- /Referential integrity/ is thus being satisfied here
+
+** /getmaps
+*** GET
+- =getmaps= queries from =Map= to display all of them thus returning a json object.
+
+
+* How to run the module
+- Set up a virtualenv by
+  =virtualenv venv (for ubuntu)=
+  =pyvenv venv (for fedora)=
+  =source venv/bin/activate=
+- Do a =pip freeze -r requirements.txt=
+- Please go to this link [[./../webapp/backend/run.py][run.py]].
+- Run =python run.py=
+
+* HOSTING A SERVER USING NGINX
+** Production server 
+- The place where code that is written is stored
+** LXC container Servers === Virtual Machines of virtual box
+- Web server
+- DNS
+- Email sever
+
+** Uses
+- Isolation so that u dont damage packages in ur mac
+- Security (Processes that are vulnerable)
+- Work organise
+** sudo cd /var/lib/lxc 
+** sudo lxc-create -t download -n Dany
+- Our container has Terminal part of OS 60-70 MB with the requirements
+- Ubuntu 
+- Xenial release
+- arm86 processor
+
+The place is safe
+- Firewall
+- Super user permissions needed
+
+** sudo lxc-ls -f
+- Stopped -- IN the sense that the server is not available from ur network socket.
+
+** sudo lxc-start -n Dany -d
+- RUNNINg state
+
+** sudo lxc-attach -n Dany
+ - U feel as if u r in a new pc
+     
+   | ----------------------v
+ - Main PC ----------- Lxc container   <---Both become an environment 
+   ^ ---------------------- 
+
+socket is an API if u have an IP with  
+which you are accessing both ur system and lxc
+
+** Apache web server and Nginx
+- Used to Upache2 to render php
+- Uncompatible with new frame works
+
+** Nginx 
+- Newer
+- U tell it which requests are to be sent where it listens and 
+sends out output without knowing abt destinaion and source
+- Rev proxy server
+
+*** Facing proxy problems in ur new VM !!
+export http_proxy="http://$pre$server:$port/"
+export https_proxy=$http_proxy
+export ftp_proxy=$http_proxy
+export rsync_proxy=$http_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$http_proxy
+export FTP_PROXY=$http_proxy
+export RSYNC_PROXY=$http_proxy
+**** and also
+
+# /etc/apt/apt.conf.d/
+Make 30proxy at the above location
+Acquire::http::proxy "http://proxy.iiit.ac.in:8080";
+Acquire::https::proxy "https://proxy.iiit.ac.in:8080";
+
+** sudo -i 
+Any Ip with 127... refers to itself
+0.0.0.0 can make other people see your server
+** uwsgi --socket 0.0.0.0:8000 --protocol=http -w wsgi
+** Deamonising a process:
+- U did a proc and came out of the sys then Kernel automatically kills it
+- Nginx 
+** If u make any changeds in python code
+** uwsgi kill -HUP 'cat <pid> /'
+
+** Add exception to a certificate then it means u dont need 
+
+* CSRF Protection
+- In Flask, we have CSRF protection inbuilt.
+- So, we use flask wtf to implement this code.
+- The link to this code is [[./../webapp/backend/app/__init__.py][__init__.py]].
+
